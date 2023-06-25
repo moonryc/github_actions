@@ -27,9 +27,9 @@ jobs:
         id: coverage
         run: |
           node -e '
-          const coveragePath = 'coverage/lcov-report/index.html';
-          const fs = require('fs');
-          const report = fs.readFileSync(coveragePath, 'utf8');
+          const coveragePath = "coverage/lcov-report/index.html";
+          const fs = require("fs");
+          const report = fs.readFileSync(coveragePath, "utf8");
           console.log(report);
           console.log("::set-output name=report::" + report)
           '
