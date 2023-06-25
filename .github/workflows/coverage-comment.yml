@@ -1,7 +1,6 @@
 name: Jest Coverage Comment
 
-on:
-  pull_request:
+on: [push, pull_request]
 
 
 jobs:
