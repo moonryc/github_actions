@@ -10,8 +10,8 @@
     "build": "tsc",
     "start": "nodemon index.ts",
     "test": "jest",
-    "ci:install": "yarn install",
-    "ci:test": "npm test -- --coverage --ci"
+    "ci:install": "yarn install --frozen-lockfile",
+    "ci:test": "jest --coverage --ci"
   },
   "keywords": [],
   "author": "",

@@ -19,10 +19,10 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn ci:install
 
       - name: Run tests and generate coverage
-        run: npm test -- --coverage --ci
+        run: yarn ci:test
 
       - name: Extract coverage report
         id: coverage
