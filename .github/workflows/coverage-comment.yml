@@ -27,11 +27,14 @@ jobs:
       - name: Extract coverage report
         id: coverage
         run: |
-          const coveragePath = 'coverage/lcov-report/index.html';
-          const fs = require('fs');
-          const report = fs.readFileSync(coveragePath, 'utf8');
+          node -e '
+          const coveragePath = "coverage/lcov-report/index.html";
+          const fs = require("fs");
+          const report = fs.readFileSync(coveragePath, "utf8");
           console.log(report);
-          console.log("::set-output name=report::" + report)
+          console.log("::set-output name=report::" + report);
+          '
+
 
       - name: Add comment to PR
         uses: peter-evans/create-or-update-comment@v1
