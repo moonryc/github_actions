@@ -2,8 +2,7 @@ name: Jest Coverage Comment
 
 on:
   pull_request:
-    types:
-      - opened
+
 
 jobs:
   coverage-comment:
@@ -11,7 +10,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -27,11 +26,13 @@ jobs:
       - name: Extract coverage report
         id: coverage
         run: |
-          const coveragePath = 'coverage/lcov-report/index.html';
-          const fs = require('fs');
-          const report = fs.readFileSync(coveragePath, 'utf8');
+          node -e '
+          const coveragePath = "coverage/lcov-report/index.html";
+          const fs = require("fs");
+          const report = fs.readFileSync(coveragePath, "utf8");
           console.log(report);
           console.log("::set-output name=report::" + report)
+          '
 
       - name: Add comment to PR
         uses: peter-evans/create-or-update-comment@v1
@@ -43,7 +44,7 @@ jobs:
             ## Jest Coverage Report
             <details>
             <summary>Coverage Details</summary>
-            
+                  
             ![Coverage Report](https://github.com/${{ github.repository }}/blob/${{ github.sha }}/${{ steps.coverage.outputs.report }})
-            
+                  
             </details>
