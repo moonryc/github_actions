@@ -1,4 +1,4 @@
-name: From exisitng folders
+name: Test coverage
 
 on:
   pull_request:
@@ -29,3 +29,5 @@ jobs:
         with: 
           test-script: yarn ci:test
           package-manager: yarn
+          #Ensures that it only triggers the correct pr to run and update the comment on
+          prnumber: ${{ steps.findPr.outputs.number }}
