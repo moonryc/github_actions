@@ -1,0 +1,31 @@
+name: From exisitng folders
+
+on:
+  pull_request:
+
+permissions: write-all
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn ci:install
+
+      - name: Run tests and generate coverage
+        run: yarn ci:test
+        
+      - name: comment-time
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        with: 
+          test-script: yarn ci:test
+          package-manager: yarn

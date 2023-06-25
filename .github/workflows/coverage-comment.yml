@@ -2,6 +2,8 @@ name: Jest Coverage Comment
 
 on:
   pull_request:
+    
+permissions: write-all
 
 
 jobs:
@@ -35,7 +37,7 @@ jobs:
           '
 
       - name: Add comment to PR
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
