@@ -19,7 +19,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: yarn ci:install
+        run: yarn install
 
       - name: Run tests and generate coverage
         run: yarn ci:test
