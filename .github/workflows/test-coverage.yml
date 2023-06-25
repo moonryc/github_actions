@@ -1,4 +1,4 @@
-name: From exisitng folders
+name: Test coverage
 
 on:
   pull_request:
@@ -21,11 +21,13 @@ jobs:
       - name: Install dependencies
         run: yarn ci:install
 
-      - name: Run tests and generate coverage
-        run: yarn ci:test
+#      - name: Run tests and generate coverage
+#        run: yarn ci:test
         
-      - name: comment-time
+      - name: Run tests and comment
         uses: ArtiomTr/jest-coverage-report-action@v2
         with: 
           test-script: yarn ci:test
           package-manager: yarn
+          #Ensures that it only triggers the correct pr to run and update the comment on
+          prnumber: ${{ steps.findPr.outputs.number }}
