@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "nodemon index.ts",
     "test": "jest",
-    "ci:install": "npm install",
+    "ci:install": "yarn install",
     "ci:test": "npm test -- --coverage --ci"
   },
   "keywords": [],
