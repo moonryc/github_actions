@@ -1,9 +1,7 @@
 name: Jest Coverage Comment
 
 on:
-  pull_request_target:
-    types:
-      - synchronize
+  pull_request:
 
 
 jobs:
