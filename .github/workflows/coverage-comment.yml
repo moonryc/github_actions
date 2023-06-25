@@ -2,6 +2,7 @@ name: Jest Coverage Comment
 
 on:
   pull_request:
+  push:
 
 jobs:
   coverage-comment:
