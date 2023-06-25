@@ -1,6 +1,6 @@
 name: Jest Coverage Comment
 
-on: 
+on:
   pull_request:
 
 
@@ -23,29 +23,7 @@ jobs:
       - name: Run tests and generate coverage
         run: yarn ci:test
 
-      - name: Extract coverage report
-        id: coverage
-        run: |
-          node -e '
-          const coveragePath = "coverage/lcov-report/index.html";
-          const fs = require("fs");
-          const report = fs.readFileSync(coveragePath, "utf8");
-          console.log(report);
-          console.log("::set-output name=report::" + report);
-          '
-      
-      
-      - name: Add comment to PR
-        uses: peter-evans/create-or-update-comment@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tests and generate coverage report
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ## Jest Coverage Report
-            <details>
-            <summary>Coverage Details</summary>
-            
-            ![Coverage Report](https://github.com/${{ github.repository }}/blob/${{ github.sha }}/${{ steps.coverage.outputs.report }})
-            
-            </details>
+          github-token: ${{ secrets.GITHUB_TOKEN }}
