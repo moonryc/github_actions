@@ -1,0 +1,49 @@
+name: Jest Coverage Comment
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  coverage-comment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests and generate coverage
+        run: npm test -- --coverage --ci
+
+      - name: Extract coverage report
+        id: coverage
+        run: |
+          const coveragePath = 'coverage/lcov-report/index.html';
+          const fs = require('fs');
+          const report = fs.readFileSync(coveragePath, 'utf8');
+          console.log(report);
+          console.log("::set-output name=report::" + report)
+
+      - name: Add comment to PR
+        uses: peter-evans/create-or-update-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## Jest Coverage Report
+            <details>
+            <summary>Coverage Details</summary>
+            
+            ![Coverage Report](https://github.com/${{ github.repository }}/blob/${{ github.sha }}/${{ steps.coverage.outputs.report }})
+            
+            </details>
