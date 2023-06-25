@@ -1,0 +1,1 @@
+export { default as addFn } from "./addFn"
